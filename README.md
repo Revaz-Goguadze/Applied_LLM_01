@@ -69,6 +69,26 @@ combines dense embeddings with bm25 lexical matching using reciprocal rank fusio
 
 **alpha values tested**: 0.0, 0.3, 0.5, 0.7, 1.0 - alpha=0.5 balanced
 
+### visualizations
+
+![System Comparison](results/comparison_chart.png)
+*side-by-side f1 scores - direct llm clearly struggles without retrieval context*
+
+![Confusion Matrices](results/confusion_matrices.png)
+*each system's predictions - embedding and rag nail it, llm guesses wrong*
+
+![Full Comparison](results/full_comparison_chart.png)
+*all metrics at a glance - retrieval-based methods dominate across the board*
+
+![K Values Ablation](results/ablation_k_values.png)
+*how many docs to retrieve? turns out 10 hits the sweet spot*
+
+![Alpha Ablation](results/ablation_alpha_values.png)
+*balancing dense vs sparse retrieval - 0.5 keeps both happy*
+
+![Cost vs Performance](results/cost_vs_performance.png)
+*embedding is cheap and accurate, llm costs more but performs worse*
+
 ## file structure
 
 ```
