@@ -1,0 +1,317 @@
+[
+  {
+    "id": 0,
+    "code": "def debug():\n    click.echo(\n        f\"{sys._getframe(1).f_code.co_name}\"\n        f\"={'|'.join(click.get_current_context().arguments)}\"\n    )",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/click/tests/test_chain.py",
+    "source_function": "debug",
+    "transformation_type": "variable_renaming",
+    "description": "variable_renaming of debug from click"
+  },
+  {
+    "id": 1,
+    "code": "def __exit___v2(\n        self,\n        exc_type: type[BaseException] | None,\n        exc_value: BaseException | None,\n        tb: TracebackType | None,\n    ) -> None:\n        self.render_finish()",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/click/src/click/_termui_impl.py",
+    "source_function": "__exit__",
+    "transformation_type": "function_renaming",
+    "description": "function_renaming of __exit__ from click"
+  },
+  {
+    "id": 2,
+    "code": "def getchar(echo: bool = False) -> str:\n    \n    global _getchar\n\n    if _getchar is None:\n        from ._termui_impl import getchar as f\n\n        _getchar = f\n\n    return _getchar(echo)",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/click/src/click/termui.py",
+    "source_function": "getchar",
+    "transformation_type": "docstring_removal",
+    "description": "docstring_removal of getchar from click"
+  },
+  {
+    "id": 3,
+    "code": "def pager():\n    \n    lines = []\n    for x in range(200):\n        lines.append(f\"{click.style(str(x), fg='green')}. Hello World!\")\n    click.echo_via_pager(\"\\n\".join(lines))",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/click/examples/termui/termui.py",
+    "source_function": "pager",
+    "transformation_type": "combined",
+    "description": "combined of pager from click"
+  },
+  {
+    "id": 4,
+    "code": "def as_cache_key(self, ireq: InstallRequirement) -> CacheKey:\n        \"\"\"\n        Given a requirement, return its cache key.\n\n        This behavior is a little weird\n        in order to allow backwards compatibility with cache files. For a requirement\n        without extras, this will return, for example:\n\n        (\"ipython\", \"2.1.0\")\n\n        For a requirement with extras, the extras will be comma-separated and appended\n        to the version, inside brackets, like so:\n\n        (\"ipython\", \"2.1.0[nbconvert,notebook]\")\n        \"\"\"\n        identifier, version, extras = as_tuple(ireq)\n        if not extras:\n            extras_string = \"\"\n        else:\n            extras_string = f\"[{','.join(extras)}]\"\n        return identifier, f\"{version}{extras_string}\"",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/pip-tools/piptools/cache.py",
+    "source_function": "as_cache_key",
+    "transformation_type": "variable_renaming",
+    "description": "variable_renaming of as_cache_key from pip-tools"
+  },
+  {
+    "id": 5,
+    "code": "def read_cache_file_v2(cache_file_path: str) -> CacheDict:\n    with open(cache_file_path, encoding=\"utf-8\") as cache_file:\n        try:\n            doc = json.load(cache_file)\n        except (json.JSONDecodeError, UnicodeDecodeError):\n            raise CorruptCacheError(cache_file_path)\n\n        # Check version and load the contents\n        if doc[\"__format__\"] != 1:\n            raise ValueError(\"Unknown cache file format\")\n        return cast(CacheDict, doc[\"dependencies\"])",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/pip-tools/piptools/cache.py",
+    "source_function": "read_cache_file",
+    "transformation_type": "function_renaming",
+    "description": "function_renaming of read_cache_file from pip-tools"
+  },
+  {
+    "id": 6,
+    "code": "def _invert_negative_bool_options_in_config(\n    ctx: click.Context, config: dict[str, Any]\n) -> dict[str, Any]:\n    new_config = {}\n    cli_opts = get_cli_options(ctx)\n\n    for key, value in config.items():\n        # Transform config key to its equivalent in the CLI\n        long_option = _convert_to_long_option(key)\n        new_key = cli_opts[long_option].name if long_option in cli_opts else key\n        negative_option_prefix = \"no_\"\n        assert new_key is not None\n        if (\n            new_key.startswith(negative_option_prefix)\n            and long_option not in ONLY_NEGATIVE_OPTIONS\n        ):\n            new_key = new_key[len(negative_option_prefix) :]\n\n        # Invert negative boolean according to the CLI\n        new_value = (\n            not value\n            if long_option.startswith(\"--no-\")\n            and long_option not in ONLY_NEGATIVE_OPTIONS\n            and isinstance(value, bool)\n            else value\n        )\n        new_config[new_key] = new_value\n\n    return new_config",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/pip-tools/piptools/utils.py",
+    "source_function": "_invert_negative_bool_options_in_config",
+    "transformation_type": "docstring_removal",
+    "description": "docstring_removal of _invert_negative_bool_options_in_config from pip-tools"
+  },
+  {
+    "id": 7,
+    "code": "def lookup_table_from_tuples(values: Iterable[tuple[_KT, _VT]]) -> dict[_KT, set[_VT]]:\n    \n    lut: dict[_KT, set[_VT]] = collections.defaultdict(set)\n    for k, v in values:\n        lut[k].add(v)\n    return dict(lut)",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/pip-tools/piptools/utils.py",
+    "source_function": "lookup_table_from_tuples",
+    "transformation_type": "combined",
+    "description": "combined of lookup_table_from_tuples from pip-tools"
+  },
+  {
+    "id": 8,
+    "code": "def hello(self, arg):\n            assert arg == 3\n            outcome = yield\n            assert outcome == 4\n            return 0",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/pluggy/testing/test_invocations.py",
+    "source_function": "hello",
+    "transformation_type": "variable_renaming",
+    "description": "variable_renaming of hello from pluggy"
+  },
+  {
+    "id": 9,
+    "code": "def subset_hook_caller_v2(\n        self, name: str, remove_plugins: Iterable[_Plugin]\n    ) -> HookCaller:\n        \"\"\"Return a proxy :class:`~pluggy.HookCaller` instance for the named\n        method which manages calls to all registered plugins except the ones\n        from remove_plugins.\"\"\"\n        orig: HookCaller = getattr(self.hook, name)\n        plugins_to_remove = {plug for plug in remove_plugins if hasattr(plug, name)}\n        if plugins_to_remove:\n            return _SubsetHookCaller(orig, plugins_to_remove)\n        return orig",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/pluggy/src/pluggy/_manager.py",
+    "source_function": "subset_hook_caller",
+    "transformation_type": "function_renaming",
+    "description": "function_renaming of subset_hook_caller from pluggy"
+  },
+  {
+    "id": 10,
+    "code": "def method6() -> Generator[None, str, str]:\n        order.append(\"6pre\")\n        result = yield\n        order.append(\"6post\")\n        return result",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/pluggy/testing/test_hookcaller.py",
+    "source_function": "method6",
+    "transformation_type": "docstring_removal",
+    "description": "docstring_removal of method6 from pluggy"
+  },
+  {
+    "id": 11,
+    "code": "def m1():\n        try:\n            yield 1\n            yield 2\n        finally:\n            out.append(\"cleanup\")",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/pluggy/testing/test_multicall.py",
+    "source_function": "m1",
+    "transformation_type": "combined",
+    "description": "combined of m1 from pluggy"
+  },
+  {
+    "id": 12,
+    "code": "def extend(self, rows, tags=list()):\n        \"\"\"Adds a list of rows to the :class:`Dataset` using\n        :method:`Dataset.append`\n        \"\"\"\n\n        for row in rows:\n            self.append(row, tags)",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/tablib/src/tablib/core.py",
+    "source_function": "extend",
+    "transformation_type": "variable_renaming",
+    "description": "variable_renaming of extend from tablib"
+  },
+  {
+    "id": 13,
+    "code": "def decodeValue_v2(self, value):\n        \"\"\"Return a ``datetime.date`` instance decoded from ``value``.\"\"\"\n        if value.strip():\n            return utils.getDate(value)\n        else:\n            return None",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/tablib/src/tablib/packages/dbfpy/fields.py",
+    "source_function": "decodeValue",
+    "transformation_type": "function_renaming",
+    "description": "function_renaming of decodeValue from tablib"
+  },
+  {
+    "id": 14,
+    "code": "def _validate(self, row=None, col=None, safety=False):\n        \n        if row:\n            is_valid = (len(row) == self.width) if self.width else True\n        elif col:\n            if len(col) < 1:\n                is_valid = True\n            else:\n                is_valid = (len(col) == self.height) if self.height else True\n        else:\n            is_valid = all(len(x) == self.width for x in self._data)\n\n        if is_valid:\n            return True\n        else:\n            if not safety:\n                raise InvalidDimensions\n            return False",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/tablib/src/tablib/core.py",
+    "source_function": "_validate",
+    "transformation_type": "docstring_removal",
+    "description": "docstring_removal of _validate from tablib"
+  },
+  {
+    "id": 15,
+    "code": "def __str__(self):\n        output = []\n\n        # Add str representation of headers.\n        if self.__headers:\n            output.append([str(h) for h in self.__headers])\n\n        # Add str representation of rows.\n        output.extend(list(map(str, row)) for row in self._data)\n\n        lens = [list(map(len, row)) for row in output]\n        field_lens = list(map(max, zip(*lens)))\n\n        # delimiter between header and info\n        if self.__headers:\n            output.insert(1, ['-' * length for length in field_lens])\n\n        format_string = '|'.join('{%s:%s}' % element for element in enumerate(field_lens))\n\n        return '\\n'.join(format_string.format(*row) for row in output)",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/tablib/src/tablib/core.py",
+    "source_function": "__str__",
+    "transformation_type": "combined",
+    "description": "combined of __str__ from tablib"
+  },
+  {
+    "id": 16,
+    "code": "def srcdir(tmpdir):\n    tmpdir.join('handler1.py').write(SCRIPT1)\n    tmpdir.join('handler2.py').write(SCRIPT2)\n    pkgdir = tmpdir.mkdir('package')\n    pkgdir.join('__init__.py').write('')\n    pkgdir.join('module_1.py').write(SCRIPT1)\n    pkgdir.join('module_2.py').write(SCRIPT2)\n\n    sys.filepath.insert(0, str(tmpdir))\n    try:\n        with tmpdir.as_cwd():\n            yield tmpdir\n    finally:\n        sys.filepath.remove(str(tmpdir))",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/kopf/tests/cli/conftest.py",
+    "source_function": "srcdir",
+    "transformation_type": "variable_renaming",
+    "description": "variable_renaming of srcdir from kopf"
+  },
+  {
+    "id": 17,
+    "code": "def decorator_v2(  # lgtm[py/similar-function]\n            fn: callbacks.ActivityFn,\n    ) -> callbacks.ActivityFn:\n        real_registry = registry if registry is not None else registries.get_default_registry()\n        real_id = registries.generate_id(fn=fn, id=id)\n        handler = handlers.ActivityHandler(\n            fn=fn, id=real_id, param=param,\n            errors=errors, timeout=timeout, retries=retries, backoff=backoff,\n            activity=causes.Activity.STARTUP,\n        )\n        real_registry._activities.append(handler)\n        return fn",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/kopf/kopf/on.py",
+    "source_function": "decorator",
+    "transformation_type": "function_renaming",
+    "description": "function_renaming of decorator from kopf"
+  },
+  {
+    "id": 18,
+    "code": "def decorator(  # lgtm[py/similar-function]\n            fn: callbacks.ChangingFn,\n    ) -> callbacks.ChangingFn:\n        _warn_conflicting_values(field, value, old, new)\n        _verify_filters(labels, annotations)\n        real_registry = registry if registry is not None else registries.get_default_registry()\n        real_field = dicts.parse_field(field) or None  # to not store tuple() as a no-field case.\n        real_id = registries.generate_id(fn=fn, id=id, suffix=\".\".join(real_field or []))\n        selector = references.Selector(\n            __group_or_groupversion_or_name, __version_or_name, __name,\n            group=group, version=version,\n            kind=kind, plural=plural, singular=singular, shortcut=shortcut, category=category,\n        )\n        handler = handlers.ChangingHandler(\n            fn=fn, id=real_id, param=param,\n            errors=errors, timeout=timeout, retries=retries, backoff=backoff,\n            selector=selector, labels=labels, annotations=annotations, when=when,\n            field=real_field, value=value, old=old, new=new, field_needs_change=True,\n            initial=None, deleted=None, requires_finalizer=None,\n            reason=causes.Reason.UPDATE,\n        )\n        real_registry._changing.append(handler)\n        return fn",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/kopf/kopf/on.py",
+    "source_function": "decorator",
+    "transformation_type": "docstring_removal",
+    "description": "docstring_removal of decorator from kopf"
+  },
+  {
+    "id": 19,
+    "code": "def build(\n            self,\n            *,\n            body: bodies.Body,\n            extra_fields: Iterable[dicts.FieldSpec] | None = None,\n    ) -> bodies.BodyEssence:\n        essence = super().build(body=body, extra_fields=extra_fields)\n\n        # Work around an issue with mypy not treating TypedDicts as MutableMappings.\n        essence_dict = cast(dict[Any, Any], essence)\n        dicts.remove(essence_dict, self.field)\n\n        return essence",
+    "is_plagiarism": true,
+    "source_file": "data/reference_corpus/kopf/kopf/_cogs/configs/diffbase.py",
+    "source_function": "build",
+    "transformation_type": "combined",
+    "description": "combined of build from kopf"
+  },
+  {
+    "id": 20,
+    "code": "def fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: fibonacci recursive"
+  },
+  {
+    "id": 21,
+    "code": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: bubble sort"
+  },
+  {
+    "id": 22,
+    "code": "def binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: binary search"
+  },
+  {
+    "id": 23,
+    "code": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: prime check"
+  },
+  {
+    "id": 24,
+    "code": "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n-1)",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: factorial"
+  },
+  {
+    "id": 25,
+    "code": "def reverse_string(s):\n    return s[::-1]",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: reverse string"
+  },
+  {
+    "id": 26,
+    "code": "def count_vowels(text):\n    return sum(1 for c in text.lower() if c in 'aeiou')",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: count vowels"
+  },
+  {
+    "id": 27,
+    "code": "def flatten(nested):\n    result = []\n    for item in nested:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: flatten list"
+  },
+  {
+    "id": 28,
+    "code": "def merge_dicts(dict1, dict2):\n    result = dict1.copy()\n    result.update(dict2)\n    return result",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: merge dicts"
+  },
+  {
+    "id": 29,
+    "code": "def remove_duplicates(lst):\n    seen = set()\n    result = []\n    for item in lst:\n        if item not in seen:\n            seen.add(item)\n            result.append(item)\n    return result",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: remove duplicates"
+  },
+  {
+    "id": 30,
+    "code": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: gcd"
+  },
+  {
+    "id": 31,
+    "code": "def lcm(a, b):\n    return abs(a * b) // gcd(a, b)",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: lcm"
+  },
+  {
+    "id": 32,
+    "code": "def power(base, exp):\n    if exp == 0:\n        return 1\n    if exp < 0:\n        return 1 / power(base, -exp)\n    return base * power(base, exp - 1)",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: power"
+  },
+  {
+    "id": 33,
+    "code": "def is_palindrome(s):\n    clean = ''.join(c.lower() for c in s if c.isalnum())\n    return clean == clean[::-1]",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: palindrome check"
+  },
+  {
+    "id": 34,
+    "code": "def word_count(text):\n    words = text.split()\n    counts = {}\n    for word in words:\n        counts[word] = counts.get(word, 0) + 1\n    return counts",
+    "is_plagiarism": false,
+    "source_file": null,
+    "source_function": null,
+    "transformation_type": null,
+    "description": "original implementation: word count"
+  }
+]

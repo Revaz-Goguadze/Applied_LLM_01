@@ -1,0 +1,19 @@
+# environment
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# large index files (regenerate with 01_indexing.ipynb)
+indexes/
+
+# jupyter
+.ipynb_checkpoints/
+
+# ide
+.vscode/
+.idea/
+*.log
+*.zip
+*.docx

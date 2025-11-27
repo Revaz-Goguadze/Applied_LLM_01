@@ -1,0 +1,93 @@
+repos:
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 25.9.0
+    hooks:
+      - id: black
+        args: [--target-version=py38]
+  - repo: https://github.com/PyCQA/isort
+    rev: 7.0.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.21.0
+    hooks:
+      - id: pyupgrade
+        args: [--py38-plus]
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-pytest-style
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.18.2
+    hooks:
+      - id: mypy
+        # Avoid error: Duplicate module named 'setup'
+        # https://github.com/python/mypy/issues/4008
+        # Keep exclude in sync with mypy own excludes
+        exclude: ^tests/test_data/
+        additional_dependencies:
+          - click==8.0.1
+          - pep517==0.10.0
+          - toml==0.10.2
+          - pip==20.3.4
+          - build==1.0.0
+          - pyproject_hooks==1.0.0
+          - pytest==7.4.2
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.6
+    hooks:
+      - id: bandit
+        args: [--ini, .bandit]
+        exclude: ^tests/
+
+  - repo: local
+    hooks:
+    - id: changelogs-md
+      name: changelog filenames
+      language: fail
+      entry: >-
+        Changelog files must be named
+        ####.(
+        bugfix
+        | feature
+        | deprecation
+        | breaking
+        | doc
+        | packaging
+        | contrib
+        | misc
+        )(.#)?(.md)?
+      exclude: >-
+        (?x)
+        ^
+          changelog.d/(
+            \.gitignore
+            |\.towncrier_template\.md\.jinja
+            |\.draft_changelog_partial\.md
+            |README\.md
+            |(\d+|[0-9a-f]{8}|[0-9a-f]{7}|[0-9a-f]{40}|\+[^.]+)\.(
+              bugfix
+              |feature
+              |deprecation
+              |breaking
+              |doc
+              |packaging
+              |contrib
+              |misc
+            )(\.\d+)?(\.md)?
+          )
+        $
+      files: ^changelog\.d/
+      types: []
+      types_or:
+      - file
+      - symlink
+
+  - repo: https://github.com/rhysd/actionlint.git
+    rev: v1.7.8
+    hooks:
+      - id: actionlint
+
+...

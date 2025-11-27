@@ -1,0 +1,20 @@
+# Core Dependencies
+google-generativeai==0.8.3
+numpy>=1.26.0
+scikit-learn>=1.4.0
+
+# BM25 for Hybrid Retrieval
+rank-bm25==0.2.2
+
+# Visualization
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Utilities
+tqdm>=4.66.0
+python-dotenv>=1.0.0
+
+# Optional (install if needed)
+# pandas>=2.2.0
+# jupyter>=1.0.0
+# ipykernel>=6.29.0
